@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simple online tool to instantly check your screen's width and height.">
+    <meta name="keywords" content="screen size, screen resolution, screen dimensions, pixel dimensions, screen checker, width height, aspect ratio, device resolution, screen measurement, screen size detector">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="src/css/style.css">
+    <script src="src/js/code.js"></script>
+    <title>ScreenGauge</title>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="content-holder">
+            <div class="the-icons">
+                <div class="tab" onclick="mobileCodeY()">
+                    <i class="fa-solid fa-mobile"></i> 
+                    <p>
+                        Mobile - Portrait
+                    </p>
+                </div>
+                <div class="tab" onclick="mobileCodeX()"> 
+                    <i class="fa-solid fa-mobile fa-rotate-90"></i>
+                    <p>
+                        Mobile - Landscape
+                    </p>
+                </div>
+                <div class="tab" onclick="tabCodeY()">
+                    <i class="fa-solid fa-tablet"></i>
+                    <p>
+                        Tablet - Portrait
+                    </p>
+                </div>
+                <div class="tab" onclick="tabCodeX()">
+                    <i class="fa-solid fa-tablet fa-rotate-90"></i>
+                    <p>
+                        Tablet - Landscape
+                    </p>
+                </div>
+                <div class="tab" onclick="laptopCode()"> 
+                    <i class="fa-sharp fa-solid fa-laptop"></i>
+                    <p>
+                        Laptop
+                    </p>
+                </div>
+                <div class="tab" onclick="DeskCode()">
+                    <i class="fa-sharp fa-solid fa-desktop"></i>
+                    <p>
+                        Desktop
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="tab">
+                <p class="Screen resolution" style="font-size: 36px;" id="resolution"> 
+                    410 x 500
+                </p>
+            </div>
+    
+                <div class="code-container">
+                    <div class="topBar">
+                        <p>
+                            CSS
+                        </p>
+                        <button class="copy" onclick="copycode()"> 
+                            <i class="fa-duotone fa-solid fa-copy"></i>
+                        </button>
+                    </div>
+
+                    <div class="the-code">
+                        <textarea id="code" class="code" disabled rows="10"></textarea>
+                    </div>
+
+                </div>
+        </div>
+        </div>
+
+        <script>
+            let code = document.getElementById('code');
+
+            function copycode(){
+                navigator.clipboard.writeText(code.value)
+            .then(() => {
+                alert('Code copied to clipboard!');
+            })
+            .catch(err => {
+                alert('Failed to copy code: ', err);
+            });
+            }
+            function mobileCodeY(){
+                code.value = "/* Device (Mobile Portrait) */@media (max-width: 576px) {/*Write your css code here*/}";
+            }      
+            function mobileCodeX(){
+                code.value = "/* Device (Mobile Landscape) */@media (max-width: 885px) {/*Write your css code here*/}";
+            }   
+            function tabCodeY(){
+                code.value = "/* Device (Tablet Portrait) */(min-width: 577px) and (max-width: 767px) {/*Write your css code here*/}";
+            }   
+            function tabCodeX(){
+                code.value = "/* Device (Tablet Landscape) */(min-width: 768px) and (max-width: 1180px) {/*Write your css code here*/}";
+            }   
+            function laptopCode(){
+                code.value = "/* Device (Laptop) */@media (min-width: 992px) and (max-width: 1199px){/*Write your css code here*/}";
+            }   
+            function DeskCode(){
+                code.value = "/* Device (Desktop) */@media (min-width: 1200px) {/*Write your css code here*/}";
+            }       
+
+
+
+
+            function updateResolution() {
+                const resolutionElement = document.getElementById('resolution');
+                resolutionElement.textContent = `${window.innerWidth} x ${window.innerHeight}`;
+                code.value = "/* Device (Mobile Portrait) */@media (max-width: "+window.innerWidth+"px) {/*Write your css code here*/}";
+            }
+
+                // Initial update
+                updateResolution();
+
+                // Update on window resize
+                window.addEventListener('resize', updateResolution);
+        </script>
+</body>
+</html>
