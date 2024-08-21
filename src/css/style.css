@@ -133,6 +133,7 @@ body{
 @media (max-width: 576px) {
     .container{
         min-height: 100vh;
+        padding: 20px;
     }
     .the-icons{
 
